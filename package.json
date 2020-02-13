@@ -1,0 +1,33 @@
+{
+  "name": "vcli",
+  "version": "1.0.0",
+  "description": "Generate component and vuex modules",
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "start": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muniraji2i/vcli.git"
+  },
+  "author": "Muniraj, Tamilarasan",
+  "license": "ISC",
+  "bin": {
+    "vcli": "dist/index.js"
+  },
+  "bugs": {
+    "url": "https://github.com/muniraji2i/vcli/issues"
+  },
+  "homepage": "https://github.com/muniraji2i/vcli#readme",
+  "dependencies": {
+    "@types/node": "^13.7.1",
+    "command-line-args": "^5.1.1",
+    "ejs": "^3.0.1",
+    "fs-extra": "^8.1.0",
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "@types/command-line-args": "^5.0.0"
+  }
+}
