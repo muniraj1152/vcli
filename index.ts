@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 import fs from 'fs';
+import chalk from "chalk";
+import minimist from "minimist";
+
 const commandLineArgs = require("command-line-args");
 
 import {ComponentGenerator } from "./src/generate/component/ComponentGenerator";
@@ -10,30 +13,31 @@ const optionDefinitions = [
   { name: "folder", alias: "f", type: Boolean }
 ];
 const options = commandLineArgs(optionDefinitions);
-
-options.isRootFolder = fs.existsSync(`${process.cwd()}/package.json`) ? true : false;
-options.typescript = fs.existsSync(`${process.cwd()}/tsconfig.json`) ? true : false;
-if (options.isRootFolder) {
-  let content = fs.readFileSync(`${process.cwd()}/package.json` , "utf8");
-  const json = JSON.parse(content);
-  if(json && json.dependencies) {
-    if(json.dependencies.vue) {
-      options.vue = true;
-    }
-    if(json.dependencies.vuex) {
-      options.vuex = true;
-    }
-  }
-} else {
-  console.log("Vue Project not found");
-}
-
 if (options.component) {
   options.isCompontsFolderExist =fs.existsSync(`${process.cwd()}/src/components`) ? true : false;
-  new ComponentGenerator().create(options);
-} else if (options.module) {
+  options.isRootFolder = fs.existsSync(`${process.cwd()}/package.json`) ? true : false;
+  options.typescript = fs.existsSync(`${process.cwd()}/tsconfig.json`) ? true : false;
+  if (options.isRootFolder) {
+    let content = fs.readFileSync(`${process.cwd()}/package.json` , "utf8");
+    const json = JSON.parse(content);
+      if(json && json.dependencies) {
+        if(json.dependencies.vue) {
+          options.vue = true;
+        } else {
+          console.log(chalk.red.bold('Vcli command requires to be run in Vue project, but Vue project could not be found.')); 
+        }
+        if(json.dependencies.vuex) {
+          options.vuex = true;
+        }
+      }
+    } else {
+      console.log(chalk.red.bold('Vcli command requires to be run in Vue project, but Vue project could not be found.'));   
+      //console.log("Vue Project not found");
+    }
+    new ComponentGenerator().create(options);
+  } else if (options.module) {
 } else {
-  console.log("command not found");
+  console.log(`${chalk.green("Vcli(Vue Command Line Interface) is used to genetate vue component.")}\nAvailable commands:\n\t${chalk.blue("component(c)")} - used to generate component.`)
 }
 
 /**

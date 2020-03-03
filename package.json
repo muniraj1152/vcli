@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/muniraji2i/vcli#readme",
   "dependencies": {
+    "@types/minimist": "1.2.0",
+    "chalk": "3.0.0",
     "command-line-args": "^5.1.1",
     "ejs": "^3.0.1",
     "fs-extra": "^8.1.0",
